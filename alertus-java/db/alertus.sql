@@ -1,0 +1,35 @@
+CREATE DATABASE IF NOT EXISTS alertus;
+USE alertus;
+
+CREATE TABLE REGIAO (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100),
+  latitude DOUBLE,
+  longitude DOUBLE
+);
+
+CREATE TABLE EVENTO (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  tipo VARCHAR(50),
+  intensidade DOUBLE,
+  data DATETIME,
+  regiao_id INT,
+  FOREIGN KEY (regiao_id) REFERENCES REGIAO(id)
+);
+
+CREATE TABLE ALERTA (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  evento_id INT,
+  mensagem VARCHAR(255),
+  nivel VARCHAR(20),
+  data DATETIME,
+  FOREIGN KEY (evento_id) REFERENCES EVENTO(id)
+);
+
+CREATE TABLE USUARIO (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  login VARCHAR(50),
+  senha VARCHAR(50)
+);
+
+INSERT INTO USUARIO (login, senha) VALUES ('admin', 'admin');
